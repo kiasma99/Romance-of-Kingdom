@@ -92,7 +92,7 @@ public class HexCell : MonoBehaviour
 
     private void UpdateDistanceLabel()
     {
-        TextMeshPro label = uiRect.GetComponent<TextMeshPro>();
+        TextMeshProUGUI label = uiRect.GetComponent<TextMeshProUGUI>();
         label.text = distance.ToString();
     }
 }

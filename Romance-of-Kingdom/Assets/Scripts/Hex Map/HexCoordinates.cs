@@ -7,6 +7,7 @@ public struct HexCoordinates
 {
     [SerializeField] int x, z;
     public int X { get { return x; } }
+    public int Y { get { return -X - Z; } }
     public int Z { get { return z; } }
 
     public HexCoordinates (int x, int z)
@@ -48,16 +49,19 @@ public struct HexCoordinates
 
     public override string ToString()
     {
-        return "(" + X.ToString() + ", " + Z.ToString() + ")";
+        return "(" + X.ToString() + ", " + Y.ToString() + ", " + Z.ToString() + ")";
     }
 
-    public string ToStringOnSeparateLines()
+/*    public string ToStringOnSeparateLines()
     {
         return X.ToString() + "\n" + Z.ToString();
-    }
+    }*/
 
     public int DistanceTo(HexCoordinates other)
     {
-        return x < other.x ? other.x - x : x - other.x;
+        return 
+            ((x < other.x ? other.x - x : x - other.x) +
+            (Y < other.Y ? other.Y - Y : Y - other.Y) +
+            (z < other.z ? other.z - z : z - other.z)) / 2;
     }
 }

@@ -13,12 +13,6 @@ public class HexMapEditor : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) HandleInput();
     }
 
-    public void SetEditMode(bool toggle)
-    {
-        editMode = toggle;
-        hexGrid.ShowUI(!toggle);
-    }
-
     private void HandleInput()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -29,6 +23,12 @@ public class HexMapEditor : MonoBehaviour
             if(editMode) EditCell(currentCell);
             else hexGrid.FindDistancesTo(currentCell);
         }
+    }
+
+    public void SetEditMode(bool toggle)
+    {
+        editMode = toggle;
+        hexGrid.ShowUI(!toggle);
     }
 
     private void EditCell(HexCell cell)
