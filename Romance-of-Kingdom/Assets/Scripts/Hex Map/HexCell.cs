@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum HexDirection
@@ -29,7 +30,6 @@ public class HexCell : MonoBehaviour
 {
     public HexGridChunk chunk;
     public HexCoordinates coordinates;
-    public Color color;
 
     public RectTransform uiRect;
 
@@ -54,6 +54,18 @@ public class HexCell : MonoBehaviour
     }
     private int elevation = 0;
 
+    public int Distance
+    {
+        get { return distance; }
+        set
+        {
+            distance = value;
+            UpdateDistanceLabel();
+        }
+    }
+
+    private int distance;
+
     public HexCell GetNeighbor(HexDirection direction)
     {
         return neighbors[(int)direction];
@@ -76,5 +88,11 @@ public class HexCell : MonoBehaviour
                 if(neighbor != null && neighbor.chunk) neighbor.chunk.Refresh();
             }
         }
+    }
+
+    private void UpdateDistanceLabel()
+    {
+        TextMeshPro label = uiRect.GetComponent<TextMeshPro>();
+        label.text = distance.ToString();
     }
 }

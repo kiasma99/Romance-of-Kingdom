@@ -78,9 +78,7 @@ public class HexGrid : MonoBehaviour
 
         TextMeshProUGUI label = Instantiate<TextMeshProUGUI>(cellLabelPrefab);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        label.text = cell.coordinates.ToStringOnSeparateLines();
         cell.uiRect = label.rectTransform;
-
         AddCellToChunk(x, z, cell);
     }
 
@@ -101,5 +99,18 @@ public class HexGrid : MonoBehaviour
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * cellCountX + coordinates.Z / 2;
         return cells[index];
+    }
+
+    public void FindDistancesTo(HexCell cell)
+    {
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i].Distance = cell.coordinates.DistanceTo(cells[i].coordinates);
+        }
+    }
+
+    public void ShowUI(bool visible)
+    {
+        for(int i = 0; i < chunks.Length; i++) chunks[i].ShowUI(visible);
     }
 }

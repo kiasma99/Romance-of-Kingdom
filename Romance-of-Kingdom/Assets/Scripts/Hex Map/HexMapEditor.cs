@@ -6,22 +6,33 @@ public class HexMapEditor : MonoBehaviour
 {
     public HexGrid hexGrid;
     private int activeElevation;
+    private bool editMode;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0)) HandleInput();
     }
 
+    public void SetEditMode(bool toggle)
+    {
+        editMode = toggle;
+        hexGrid.ShowUI(!toggle);
+    }
+
     private void HandleInput()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(inputRay, out hit)) EditCell(hexGrid.GetCell(hit.point));
+        if (Physics.Raycast(inputRay, out hit))
+        {
+            HexCell currentCell = hexGrid.GetCell(hit.point);
+            if(editMode) EditCell(currentCell);
+            else hexGrid.FindDistancesTo(currentCell);
+        }
     }
 
     private void EditCell(HexCell cell)
     {
-        cell.color = Color.white;
         cell.Elevation = activeElevation;
     }
 

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class HexGridChunk : MonoBehaviour
 {
-    HexCell[] cells;
+    private HexCell[] cells;
 
-    HexMesh hexMesh;
-    Canvas gridCanvas;
+    private HexMesh hexMesh;
+    private Canvas gridCanvas;
 
     private void Awake()
     {
@@ -35,5 +35,10 @@ public class HexGridChunk : MonoBehaviour
     public void Refresh()
     {
         enabled = true;
+    }
+
+    public void ShowUI(bool visible)
+    {
+        gridCanvas.gameObject.SetActive(visible);
     }
 }

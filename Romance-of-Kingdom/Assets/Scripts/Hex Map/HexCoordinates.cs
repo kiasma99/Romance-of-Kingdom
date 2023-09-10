@@ -55,4 +55,9 @@ public struct HexCoordinates
     {
         return X.ToString() + "\n" + Z.ToString();
     }
+
+    public int DistanceTo(HexCoordinates other)
+    {
+        return x < other.x ? other.x - x : x - other.x;
+    }
 }
