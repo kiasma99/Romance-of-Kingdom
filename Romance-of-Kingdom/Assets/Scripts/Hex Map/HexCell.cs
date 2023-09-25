@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum HexDirection
 {
@@ -93,6 +94,19 @@ public class HexCell : MonoBehaviour
     private void UpdateDistanceLabel()
     {
         TextMeshProUGUI label = uiRect.GetComponent<TextMeshProUGUI>();
-        label.text = distance.ToString();
+        label.text = distance == int.MaxValue ? "" : distance.ToString();
+    }
+
+    public void DisableHighlight()
+    {
+        Image highlight = uiRect.GetChild(0).GetComponent<Image>();
+        highlight.enabled = false;
+    }
+
+    public void EnableHighlight(Color color)
+    {
+        Image highlight = uiRect.GetChild(0).GetComponent<Image>();
+        highlight.color = color;
+        highlight.enabled = true;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class HexMapEditor : MonoBehaviour
 {
     public HexGrid hexGrid;
+    private HexCell searchFromCell;
     private int activeElevation;
     private bool editMode;
 
@@ -21,6 +22,12 @@ public class HexMapEditor : MonoBehaviour
         {
             HexCell currentCell = hexGrid.GetCell(hit.point);
             if(editMode) EditCell(currentCell);
+            else if (Input.GetKey(KeyCode.LeftShift))
+            {
+                if (searchFromCell) searchFromCell.DisableHighlight();
+                searchFromCell = currentCell;
+                searchFromCell.EnableHighlight(Color.blue);
+            }
             else hexGrid.FindDistancesTo(currentCell);
         }
     }

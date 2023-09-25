@@ -103,9 +103,36 @@ public class HexGrid : MonoBehaviour
 
     public void FindDistancesTo(HexCell cell)
     {
+        StopAllCoroutines();
+        StartCoroutine(Search(cell));
+    }
+
+    IEnumerator Search(HexCell cell)
+    { 
         for (int i = 0; i < cells.Length; i++)
         {
-            cells[i].Distance = cell.coordinates.DistanceTo(cells[i].coordinates);
+            cells[i].Distance = int.MaxValue;
+        }
+
+        List<HexCell> frontier = new List<HexCell> ();
+        cell.Distance = 0;
+        frontier.Add(cell);
+        while(frontier.Count > 0)
+        {
+            yield return null;
+            HexCell current = frontier[0];
+            frontier.RemoveAt(0);
+            for(HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+            {
+                HexCell neighbor = current.GetNeighbor(d);
+
+                // 이동불가지역 조건추가
+                if (neighbor == null || neighbor.Distance != int.MaxValue) continue;
+                if (neighbor.Elevation > 1) continue;
+
+                neighbor.Distance = current.Distance + 1;
+                frontier.Add(neighbor);
+            }
         }
     }
 

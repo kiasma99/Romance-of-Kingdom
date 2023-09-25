@@ -52,11 +52,6 @@ public struct HexCoordinates
         return "(" + X.ToString() + ", " + Y.ToString() + ", " + Z.ToString() + ")";
     }
 
-/*    public string ToStringOnSeparateLines()
-    {
-        return X.ToString() + "\n" + Z.ToString();
-    }*/
-
     public int DistanceTo(HexCoordinates other)
     {
         return 
